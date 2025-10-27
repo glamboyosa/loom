@@ -43,9 +43,9 @@ Loom watches a `.loom.yml` file in your project directory and automatically exec
   - Job scheduling and execution
   - State management and coordination
 
-#### **Frontend Dashboard** (Future)
+#### **Frontend Dashboard**
 
-- **Language**: React/TypeScript
+- **Language**: SvelteKit/TypeScript
 - **Purpose**: Web-based monitoring interface
 - **Features**:
   - Real-time job status
@@ -362,7 +362,7 @@ Runner: Starting job 'build'
 Runner: Job 'build' completed
 ```
 
-### Web Dashboard (Future)
+### Web Dashboard
 
 - Real-time job status
 - Live log streaming
@@ -385,17 +385,25 @@ loom/
 │   │       └── watcher/   # File monitoring
 │   ├── test/
 │   └── mix.exs
-├── frontend/              # React dashboard (future)
+├── ui/                    # SvelteKit dashboard
+│   ├── src/
+│   │   ├── routes/        # SvelteKit pages
+│   │   ├── lib/           # Components and utilities
+│   │   └── app.html
+│   ├── package.json
+│   └── svelte.config.js
 └── README.md
 ```
 
 ### Key Technologies
 
 - **Elixir/OTP**: Fault-tolerant, concurrent backend
+- **Phoenix**: Web framework with real-time channels
 - **Ecto**: Data validation and transformation
 - **libgraph**: Dependency graph management
 - **Docker**: Containerized job execution
-- **React**: Web dashboard (planned)
+- **SvelteKit**: Modern web dashboard with TypeScript
+- **shadcn-svelte**: Beautiful UI components
 
 ### Testing
 
