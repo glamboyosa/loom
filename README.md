@@ -1,21 +1,21 @@
-# 🧵 Loom - File-Watching Workflow Runner
+# Loom - File-Watching Workflow Runner
 
 > **Loom** is a lightweight, file-watching workflow runner that executes jobs defined in `.loom.yml` files. Think GitHub Actions, but local and file-driven.
 
-## 🎯 What is Loom?
+## What is Loom?
 
 Loom watches a `.loom.yml` file in your project directory and automatically executes workflows when the file changes. Each job runs in a Docker container (or subprocess) with full dependency management, parallel execution, and real-time logging.
 
 ### Key Features
 
-- 🔍 **File Watching**: Automatically detects changes to `.loom.yml`
-- 🐳 **Docker Integration**: Each job runs in isolated containers
-- 📊 **Dependency Management**: Smart DAG-based job scheduling
-- ⚡ **Parallel Execution**: Independent jobs run simultaneously
-- 📝 **Real-time Logs**: Live output to console and web dashboard
-- 🛡️ **Type Safety**: Robust validation with clear error messages
+- **File Watching**: Automatically detects changes to `.loom.yml`
+- **Docker Integration**: Each job runs in isolated containers
+- **Dependency Management**: Smart DAG-based job scheduling
+- **Parallel Execution**: Independent jobs run simultaneously
+- **Real-time Logs**: Live output to console and web dashboard
+- **Type Safety**: Robust validation with clear error messages
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -33,7 +33,7 @@ Loom watches a `.loom.yml` file in your project directory and automatically exec
 
 ### Components
 
-#### 🎛️ **Orchestrator** (This Repository)
+#### **Orchestrator** (This Repository)
 
 - **Language**: Elixir/OTP
 - **Purpose**: Core workflow engine
@@ -43,7 +43,7 @@ Loom watches a `.loom.yml` file in your project directory and automatically exec
   - Job scheduling and execution
   - State management and coordination
 
-#### 🖥️ **Frontend Dashboard** (Future)
+#### **Frontend Dashboard** (Future)
 
 - **Language**: React/TypeScript
 - **Purpose**: Web-based monitoring interface
@@ -53,7 +53,7 @@ Loom watches a `.loom.yml` file in your project directory and automatically exec
   - Workflow visualization
   - Historical execution data
 
-#### 🐳 **Job Runner** (Docker)
+#### **Job Runner** (Docker)
 
 - **Purpose**: Isolated job execution
 - **Features**:
@@ -62,7 +62,7 @@ Loom watches a `.loom.yml` file in your project directory and automatically exec
   - Resource management
   - Log capture and streaming
 
-## 📝 Workflow Definition
+## Workflow Definition
 
 Define your workflows in `.loom.yml`:
 
@@ -123,9 +123,9 @@ jobs:
 - `test` and `lint` run in parallel (both depend on `build`)
 - `deploy` runs last (depends on both `test` and `lint`)
 
-## 🚀 Quick Start
+## Quick Start
 
-### 🐳 **Option 1: Docker Hub (Instant)**
+### **Option 1: Docker Hub (Instant)**
 
 **Perfect for**: Quick testing, demos, and trying Loom
 
@@ -146,7 +146,7 @@ docker run -d \
 
 **Access**: http://localhost:5173 (Dashboard) + http://localhost:4000 (API)
 
-### 📦 **Option 2: Clone + Docker (Customizable)**
+### **Option 2: Clone + Docker (Customizable)**
 
 **Perfect for**: Development, customization, and contributing
 
@@ -162,7 +162,7 @@ docker-compose up -d
 
 **Access**: http://localhost:5173 (Dashboard) + http://localhost:4000 (API)
 
-### 🔧 **Option 3: Development Mode**
+### **Option 3: Development Mode**
 
 **Perfect for**: Contributors and advanced users
 
@@ -178,16 +178,16 @@ pnpm install && pnpm dev
 
 **Access**: http://localhost:5173 (Dashboard) + http://localhost:4000 (API)
 
-## 🎯 **What You Get**
+## What You Get
 
-### ✅ **Complete Workflow Engine**
+### **Complete Workflow Engine**
 
 - **File Watching**: Automatically detects `.loom.yml` changes
 - **Job Scheduling**: Runs jobs based on dependencies
 - **Docker Execution**: Isolated job execution in containers
 - **Real-time Logs**: Live streaming via WebSocket
 
-### ✅ **Multi-Language Support**
+### **Multi-Language Support**
 
 - **Node.js** (16, 18, 20, 22)
 - **Python** (3.9, 3.10, 3.11, 3.12)
@@ -200,14 +200,14 @@ pnpm install && pnpm dev
 - **Ubuntu** (20.04, 22.04, latest)
 - **Custom** Docker images
 
-### ✅ **GitHub Actions Compatible**
+### **GitHub Actions Compatible**
 
 - Same workflow syntax as GitHub Actions
 - Workspace mounting (`/workspace` in containers)
 - Environment variables and secrets
 - Matrix builds and parallel jobs
 
-## 🎮 **Try It Out**
+## Try It Out
 
 Create a `.loom.yml` file in your project:
 
@@ -260,7 +260,7 @@ jobs:
 4. Stream logs to the dashboard
 5. Show real-time progress
 
-## 🔧 **Development Commands**
+## Development Commands
 
 ```bash
 make help        # Show all commands
@@ -271,7 +271,7 @@ make compile     # Compile project
 make clean       # Clean build artifacts
 ```
 
-## 🔧 **Troubleshooting**
+## Troubleshooting
 
 ### Common Issues
 
@@ -316,7 +316,7 @@ nvm alias default 22
 3. **Docker status**: Verify Docker is running and accessible
 4. **File permissions**: Ensure Docker can access your workspace
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -348,18 +348,18 @@ jobs:
         run: npm install
 ```
 
-## 📊 Monitoring & Logs
+## Monitoring & Logs
 
 ### Console Output
 
 ```
-🔍 Watcher: Monitoring .loom.yml
-📁 Watcher: Config file changed: .loom.yml
-✅ Watcher: Workflow reloaded with 4 jobs
-🚀 Scheduler: Starting execution...
-📋 Scheduler: Found 1 ready jobs
-🏃 Runner: Starting job 'build'
-✅ Runner: Job 'build' completed
+Watcher: Monitoring .loom.yml
+Watcher: Config file changed: .loom.yml
+Watcher: Workflow reloaded with 4 jobs
+Scheduler: Starting execution...
+Scheduler: Found 1 ready jobs
+Runner: Starting job 'build'
+Runner: Job 'build' completed
 ```
 
 ### Web Dashboard (Future)
@@ -370,7 +370,7 @@ jobs:
 - Performance metrics
 - Historical data
 
-## 🛠️ Development
+## Development
 
 ### Project Structure
 
@@ -408,7 +408,7 @@ mix run test_scheduler.exs
 mix run test_communication.exs
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -429,8 +429,8 @@ mix test
 make dev
 ```
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-**Loom** - Weaving workflows together, one file at a time. 🧵
+**Loom** - Weaving workflows together, one file at a time.
