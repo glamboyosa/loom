@@ -433,43 +433,4 @@ make dev
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🗺️ Roadmap
-
-### Phase 1: Core Engine ✅
-
-- [x] YAML parsing and validation
-- [x] Dependency graph management
-- [x] Basic job execution
-- [x] Component communication
-
-### Phase 2: Docker Integration ✅
-
-- [x] Docker container execution
-- [x] Volume mounting
-- [x] Dynamic image selection
-- [x] Real-time log streaming
-
-### Phase 3: Web Dashboard 📋
-
-- [ ] React frontend
-- [ ] Real-time log streaming
-- [ ] Workflow visualization
-- [ ] Job status monitoring
-
-### Phase 4: Advanced Features 🔮
-
-- [ ] Job retry logic
-- [ ] Conditional execution
-- [ ] Secret management
-- [ ] Multi-environment support
-- [ ] Plugin system
-
-## 🙏 Acknowledgments
-
-- Inspired by GitHub Actions workflow syntax
-- Built with Elixir/OTP for reliability
-- Uses Docker for consistent execution environments
-
----
-
 **Loom** - Weaving workflows together, one file at a time. 🧵
