@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  loom:
+    image: loom/orchestrator:latest  # This will be the Docker Hub image
+    ports:
+      - "4000:4000"  # API
+      - "5173:5173"  # Frontend
+    volumes:
+      - loom-data:/app/data  # Persistent data for SQLite and logs
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket for job execution
+      - .:/workspace  # Mount the current directory as workspace
+    environment:
+      MIX_ENV: prod
+      PORT: 4000
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-"$(openssl rand -base64 32)"}
+    networks:
+      - loom-network
+    restart: unless-stopped
+
+volumes:
+  loom-data:
+    driver: local
+
+networks:
+  loom-network:
+    driver: bridge

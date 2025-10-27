@@ -1,0 +1,32 @@
+name: "Test Workflow"
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: node-18
+    steps:
+      - name: Show Node environment
+        run: echo "Building Node.js project..." && node --version && npm --version && echo "Current directory:" && pwd
+      - name: Create build artifact
+        run: echo "Creating build artifact..." && echo "Build complete!" > build.txt && cat build.txt
+
+  test:
+    needs: [build]
+    runs-on: node-18
+    steps:
+      - name: Run tests
+        run: echo "Running Node.js tests..." && echo "All tests passed!" && ls -la build.txt
+
+  lint:
+    needs: [build]
+    runs-on: node-18
+    steps:
+      - name: Run linter
+        run: echo "Running ESLint..." && echo "No linting errors found!"
+
+  deploy:
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deploying application..." && echo "Deployment successful!"

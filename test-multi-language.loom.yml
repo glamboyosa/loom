@@ -1,0 +1,100 @@
+name: "Multi-Language Test Workflow"
+on: [push, pull_request]
+
+jobs:
+  # Node.js job
+  node-build:
+    runs-on: node-18
+    steps:
+      - name: Setup Node.js
+        run: |
+          echo "Node.js version:"
+          node --version
+          echo "npm version:"
+          npm --version
+          echo "Current directory:"
+          pwd
+      - name: Create Node.js file
+        run: |
+          echo 'console.log("Hello from Node.js!");' > hello.js
+          node hello.js
+
+  # Python job
+  python-build:
+    runs-on: python-3.11
+    steps:
+      - name: Setup Python
+        run: |
+          echo "Python version:"
+          python --version
+          echo "pip version:"
+          pip --version
+          echo "Current directory:"
+          pwd
+      - name: Create Python file
+        run: |
+          echo 'print("Hello from Python!")' > hello.py
+          python hello.py
+
+  # Go job
+  go-build:
+    runs-on: golang
+    steps:
+      - name: Setup Go
+        run: |
+          echo "Go version:"
+          go version
+          echo "Current directory:"
+          pwd
+      - name: Create Go file
+        run: |
+          echo 'package main
+          import "fmt"
+          func main() {
+              fmt.Println("Hello from Go!")
+          }' > hello.go
+          go run hello.go
+
+  # Ubuntu job
+  ubuntu-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Ubuntu
+        run: |
+          echo "OS info:"
+          uname -a
+          echo "Current directory:"
+          pwd
+      - name: Create shell script
+        run: |
+          echo '#!/bin/bash
+          echo "Hello from Ubuntu!"' > hello.sh
+          chmod +x hello.sh
+          ./hello.sh
+
+  # Custom Docker image job
+  custom-build:
+    runs-on: alpine:latest
+    steps:
+      - name: Setup Alpine
+        run: |
+          echo "Alpine version:"
+          cat /etc/os-release
+          echo "Current directory:"
+          pwd
+      - name: Create file
+        run: |
+          echo "Hello from Alpine Linux!" > hello.txt
+          cat hello.txt
+
+  # Combined job that depends on others
+  combined:
+    needs: [node-build, python-build, go-build, ubuntu-build, custom-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show all artifacts
+        run: |
+          echo "All jobs completed! Here are the artifacts:"
+          ls -la *.js *.py *.go *.sh *.txt 2>/dev/null || echo "No artifacts found"
+          echo "Files in workspace:"
+          find . -name "hello.*" -type f

@@ -1,0 +1,142 @@
+#!/bin/bash
+
+# Loom - Self-hosted Actions Runner
+# Usage: ./loom [start|stop|status|logs]
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Function to print colored output
+print_status() {
+    echo -e "${BLUE}[LOOM]${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}[LOOM]${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[LOOM]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[LOOM]${NC} $1"
+}
+
+# Check if Docker is running
+check_docker() {
+    if ! docker info > /dev/null 2>&1; then
+        print_error "Docker is not running. Please start Docker and try again."
+        exit 1
+    fi
+}
+
+# Check if .loom.yml exists
+check_loom_file() {
+    if [ ! -f ".loom.yml" ]; then
+        print_warning "No .loom.yml file found in current directory."
+        print_status "Create a .loom.yml file to define your workflows."
+        print_status "Example:"
+        echo ""
+        echo "name: \"My Project\""
+        echo "on: [push, pull_request]"
+        echo ""
+        echo "jobs:"
+        echo "  build:"
+        echo "    runs-on: node-18"
+        echo "    steps:"
+        echo "      - name: Install dependencies"
+        echo "        run: npm install"
+        echo "      - name: Build"
+        echo "        run: npm run build"
+        echo ""
+    fi
+}
+
+# Start Loom
+start_loom() {
+    print_status "Starting Loom orchestrator..."
+    check_docker
+    check_loom_file
+    
+    # Build and start with docker-compose
+    docker-compose up -d --build
+    
+    print_success "Loom orchestrator started!"
+    print_status "Dashboard: http://localhost:4000"
+    print_status "API: http://localhost:4000/api/status"
+    print_status "WebSocket: ws://localhost:4000/socket/websocket"
+    echo ""
+    print_status "To view logs: ./loom logs"
+    print_status "To stop: ./loom stop"
+}
+
+# Stop Loom
+stop_loom() {
+    print_status "Stopping Loom orchestrator..."
+    docker-compose down
+    print_success "Loom orchestrator stopped!"
+}
+
+# Show status
+show_status() {
+    print_status "Loom orchestrator status:"
+    echo ""
+    
+    if docker-compose ps | grep -q "Up"; then
+        print_success "✅ Loom is running"
+        echo ""
+        print_status "Services:"
+        docker-compose ps
+        echo ""
+        print_status "Dashboard: http://localhost:4000"
+    else
+        print_warning "❌ Loom is not running"
+        print_status "Start with: ./loom start"
+    fi
+}
+
+# Show logs
+show_logs() {
+    print_status "Showing Loom logs (Ctrl+C to exit):"
+    docker-compose logs -f loom
+}
+
+# Main script logic
+case "${1:-start}" in
+    start)
+        start_loom
+        ;;
+    stop)
+        stop_loom
+        ;;
+    status)
+        show_status
+        ;;
+    logs)
+        show_logs
+        ;;
+    *)
+        echo "Usage: $0 [start|stop|status|logs]"
+        echo ""
+        echo "Commands:"
+        echo "  start   Start the Loom orchestrator (default)"
+        echo "  stop    Stop the Loom orchestrator"
+        echo "  status  Show status of Loom services"
+        echo "  logs    Show logs from Loom orchestrator"
+        echo ""
+        echo "Examples:"
+        echo "  $0              # Start Loom"
+        echo "  $0 start        # Start Loom"
+        echo "  $0 stop         # Stop Loom"
+        echo "  $0 status       # Check status"
+        echo "  $0 logs         # View logs"
+        exit 1
+        ;;
+esac
